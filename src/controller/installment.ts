@@ -8,7 +8,7 @@ import { Instalment, installmentSchema } from "../entity/instalments";
 @tagsAll(["Instalment"])
 export default class InstalmentController {
 
-    @request("get", "/Instalments")
+    @request("get", "/instalments")
     @summary("Find all Instalments")
     public static async getInstalments(ctx: BaseContext): Promise<void> {
 
@@ -147,7 +147,7 @@ export default class InstalmentController {
 
     }
 
-    @request("get", "/Instalments/{id}")
+    @request("get", "/Instalments/user/{id}")
     @summary("Find Instalment by User Id")
     @path({
         id: { type: "number", required: true, description: "id of User" }

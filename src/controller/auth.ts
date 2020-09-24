@@ -14,7 +14,7 @@ export default class Auth {
     @request("post", "/signin")
     @summary("SignIn")
     @body({
-        userName: { type: "string", required: true, example: "firstName.lastName@gmail.com" },
+        userName: { type: "string", required: true, example: "userName" },
         password: { type: "string", required: true, example: "123abcABC!@#" }
     })
     public static async signin(ctx: BaseContext) {
