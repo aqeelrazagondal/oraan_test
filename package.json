@@ -6,13 +6,11 @@
   "scripts": {
     "watch-server": "nodemon --watch src -e ts,tsx --exec ts-node src/server.ts",
     "build-ts": "tsc",
-    "copy-static-assets": "ts-node copyStaticAssets.ts",
-    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-    "serve": "node dist/server.js",
-    "build": "npm run lint && npm run build-ts && npm run copy-static-assets",
-    "start": "npm run serve",
-    "test:integration:heroku": "newman run integrationtests/node-koa-typescript.postman_collection.json -e integrationtests/env/heroku-dev.postman_environment.json",
-    "test:integration:local": "newman run integrationtests/node-koa-typescript.postman_collection.json -e integrationtests/env/local-dev.postman_environment.json",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "serve": "nodemon dist/server.js",
+    "build": "npm run tslint && npm run build-ts",
+    "start": "nodemon --watch src -e ts,tsx --exec ts-node src/server.ts",
+    "test:integration": "newman run integrationtests/node-koa-typescript.postman_collection.json -e integrationtests/heroku-dev.postman_environment.json",
     "test:load": "locust --no-web -c 50 -r 10 -f loadtests/locustfile.py --run-time 1m --host=https://node-typescript-koa-rest.herokuapp.com"
   },
   "engines": {

@@ -62,7 +62,7 @@ export default class InstalmentController {
         instalmentToBeSaved.paymentDate = ctx.request.body.paymentDate;
         instalmentToBeSaved.instalmentDate = ctx.request.body.instalmentDate;
         instalmentToBeSaved.instalmentAmount = ctx.request.body.instalmentAmount;
-        instalmentToBeSaved.paymentMethod = ctx.request.body.paymentMethod;
+        instalmentToBeSaved.paymentMethodId = ctx.request.body.paymentMethodId;
 
         // validate Instalment entity
         const errors: ValidationError[] = await validate(instalmentToBeSaved); // errors is an array of validation errors
@@ -98,7 +98,7 @@ export default class InstalmentController {
         instalmentToBeUpdated.paymentDate = ctx.request.body.paymentDate;
         instalmentToBeUpdated.instalmentDate = ctx.request.body.instalmentDate;
         instalmentToBeUpdated.instalmentAmount = ctx.request.body.instalmentAmount;
-        instalmentToBeUpdated.paymentMethod = ctx.request.body.paymentMethod;
+        instalmentToBeUpdated.paymentMethodId = ctx.request.body.paymentMethodId;
 
         // validate Instalment entity
         const errors: ValidationError[] = await validate(instalmentToBeUpdated); // errors is an array of validation errors
@@ -143,6 +143,31 @@ export default class InstalmentController {
             await instalmentRepository.remove(instalmentToRemove);
             // return a NO CONTENT status code
             ctx.status = 204;
+        }
+
+    }
+
+    @request("get", "/Instalments/{id}")
+    @summary("Find Instalment by User Id")
+    @path({
+        id: { type: "number", required: true, description: "id of User" }
+    })
+    public static async getInstalmentByUserId(ctx: BaseContext): Promise<void> {
+
+        // get a Instalment repository to perform operations with Instalment
+        const instalmentRepository: Repository<Instalment> = getManager().getRepository(Instalment);
+
+        // load Instalment by User id
+        const instalments: Instalment[] | undefined = await instalmentRepository.find({userId: +ctx.params.id || 0});
+
+        if (instalments) {
+            // return OK status code and loaded Instalment object
+            ctx.status = 200;
+            ctx.body = instalments;
+        } else {
+            // return a BAD REQUEST status code and error message
+            ctx.status = 400;
+            ctx.body = "The Instalment you are trying to retrieve doesn't exist in the db";
         }
 
     }

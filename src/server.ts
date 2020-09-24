@@ -12,7 +12,6 @@ import { config } from "./config";
 import { unprotectedRouter } from "./unprotectedRoutes";
 import { protectedRouter } from "./protectedRoutes";
 import { cron } from "./cron";
-
 // create connection with database
 // note that its not active database connection
 // TypeORM creates you connection pull to uses connections from pull on your requests

@@ -39,7 +39,7 @@ export class Instalment {
         type: "varchar"
     })
     @IsString()
-    paymentMethod: string;
+    paymentMethodId: string;
 
     // Generic Fields
     @Column({ nullable: true, type: "datetime" })
@@ -65,5 +65,5 @@ export const installmentSchema = {
     paymentDate: { type: "date", required: true, example: "12-12-2020" },
     instalmentDate: { type: "date", required: true, example: "12-12-2020" },
     instalmentAmount: { type: "Number", required: true, example: "2345" },
-    paymentMethod: { type: "string", required: true, example: "avileslopez.javier@gmail.com" }
+    paymentMethodId: { type: "string", required: true, example: "avileslopez.javier@gmail.com" }
 };

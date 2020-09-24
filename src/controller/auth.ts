@@ -26,8 +26,8 @@ export default class Auth {
         }
 
         const userToBeLogin: UserLogin = new UserLogin();
-        userToBeLogin.userName = ctx.request.body.name;
-        userToBeLogin.password = ctx.request.body.email;
+        userToBeLogin.userName = ctx.request.body.userName;
+        userToBeLogin.password = ctx.request.body.password;
 
         // validate user entity
         const errors: ValidationError[] = await validate(userToBeLogin); // errors is an array of validation errors
@@ -42,14 +42,14 @@ export default class Auth {
         // Get User detail
         const res: User = await userRepository.findOne({
             where: {
-                userName: ctx.request.body.userName,
-                password: ctx.request.body.password
+                userName: ctx.request.body.userName
             },
             relations: ["statusId"]
         });
         if (!res) {
             return new NotFoundError("Account Not Found");
         }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const check: any = await bcrypt.compare(ctx.request.body.password, res.password);
         if (check) {
             // return Success status code and user detail
