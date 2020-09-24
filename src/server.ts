@@ -15,15 +15,21 @@ import { cron } from "./cron";
 // create connection with database
 // note that its not active database connection
 // TypeORM creates you connection pull to uses connections from pull on your requests
+// synchronize = true Indicates if database schema should be auto created on every application launch. 
+// Be careful with this option and don't use this in production - 
 createConnection({
     type: "postgres",
     url: config.databaseUrl,
-    synchronize: true,
     logging: false,
     entities: config.dbEntitiesPath,
     extra: {
         ssl: config.dbsslconn, // if not development, will use SSL
-    }
+    },
+        /**
+     * [true] - Make `synchronize` to `true` If Want Modification in db, Based on Given Entites
+     * [false] {Recommended} - Make `synchronize` to `false` if don't Want Any Modification in db, based on Given Entities
+     */
+    synchronize: true,
 }).then(async () => {
 
     const app = new Koa();

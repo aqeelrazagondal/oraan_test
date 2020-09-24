@@ -158,7 +158,12 @@ export default class InstalmentController {
         const instalmentRepository: Repository<Instalment> = getManager().getRepository(Instalment);
 
         // load Instalment by User id
-        const instalments: Instalment[] | undefined = await instalmentRepository.find({userId: +ctx.params.id || 0});
+        const instalments: Instalment[] | undefined = await instalmentRepository.find({
+            where: {
+                userId: +ctx.params.id || 0
+            },
+            relations: ["paymentMethods", "user"]}
+        );
 
         if (instalments) {
             // return OK status code and loaded Instalment object

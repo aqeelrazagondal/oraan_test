@@ -6,6 +6,7 @@ import {
     IsDate
   } from "class-validator";
 import { User } from "./user";
+import { PaymentMethod } from "./paymentMethods";
 
 @Entity()
 export class Instalment {
@@ -39,7 +40,10 @@ export class Instalment {
         type: "varchar"
     })
     @IsString()
-    paymentMethodId: string;
+    @ManyToOne(type => PaymentMethod)
+    @JoinColumn({ name: "paymentMethodId" })
+    @IsNumber()
+    paymentMethodId: number;
 
     // Generic Fields
     @Column({ nullable: true, type: "datetime" })

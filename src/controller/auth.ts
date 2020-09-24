@@ -43,8 +43,7 @@ export default class Auth {
         const res: User = await userRepository.findOne({
             where: {
                 userName: ctx.request.body.userName
-            },
-            relations: ["statusId"]
+            }
         });
         if (!res) {
             return new NotFoundError("Account Not Found");
