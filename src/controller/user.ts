@@ -58,7 +58,7 @@ export default class UserController {
 
         // build up entity user to be saved
         const userToBeSaved: User = new User();
-        userToBeSaved.user_name = ctx.request.body.name;
+        userToBeSaved.userName = ctx.request.body.name;
         userToBeSaved.password = ctx.request.body.email;
 
         // validate user entity
@@ -68,7 +68,7 @@ export default class UserController {
             // return BAD REQUEST status code and errors array
             ctx.status = 400;
             ctx.body = errors;
-        } else if (await userRepository.findOne({ user_name: userToBeSaved.user_name })) {
+        } else if (await userRepository.findOne({ userName: userToBeSaved.userName })) {
             // return BAD REQUEST status code and email already exists error
             ctx.status = 400;
             ctx.body = "The specified e-mail address already exists";
@@ -96,7 +96,7 @@ export default class UserController {
         // build up entity user to be updated
         const userToBeUpdated: User = new User();
         userToBeUpdated.id = +ctx.params.id || 0; // will always have a number, this will avoid errors
-        userToBeUpdated.user_name = ctx.request.body.user_name;
+        userToBeUpdated.userName = ctx.request.body.userName;
         userToBeUpdated.password = ctx.request.body.password;
 
         // validate user entity
@@ -111,7 +111,7 @@ export default class UserController {
             // return a BAD REQUEST status code and error message
             ctx.status = 400;
             ctx.body = "The user you are trying to update doesn't exist in the db";
-        } else if (await userRepository.findOne({ id: Not(Equal(userToBeUpdated.id)), user_name: userToBeUpdated.user_name })) {
+        } else if (await userRepository.findOne({ id: Not(Equal(userToBeUpdated.id)), userName: userToBeUpdated.userName })) {
             // return BAD REQUEST status code and email already exists error
             ctx.status = 400;
             ctx.body = "The specified e-mail address already exists";
@@ -141,7 +141,7 @@ export default class UserController {
             // return a BAD REQUEST status code and error message
             ctx.status = 400;
             ctx.body = "The user you are trying to delete doesn't exist in the db";
-        } else if (ctx.state.user.user_name !== userToRemove.user_name) {
+        } else if (ctx.state.user.userName !== userToRemove.userName) {
             // check user's token id and user id are the same
             // if not, return a FORBIDDEN status code and error message
             ctx.status = 403;

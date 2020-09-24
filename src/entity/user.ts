@@ -12,7 +12,7 @@ export class User {
         type: "varchar"
     })
     @Length(5, 80)
-    user_name: string;
+    userName: string;
 
     @Column({
         length: 20,
@@ -31,21 +31,21 @@ export class User {
 
     // Generic Fields
     @Column({ nullable: true, type: 'datetime' })
-    created_at: Date;
+    createdAt: Date;
     
     @Column({ nullable: true, type: 'datetime' })
-    updated_at: Date;
+    updatedAt: Date;
 
     @BeforeInsert()
     beforeinsert() {
-        this.created_at = new Date();
-        this.updated_at = new Date();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
         this.password = bcrypt.hashSync(this.password, 10);
     }
 
     @BeforeUpdate()
     beforeUpdate() {
-        this.created_at = new Date();
+        this.createdAt = new Date();
     }
 }
 

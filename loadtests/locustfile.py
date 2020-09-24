@@ -27,12 +27,12 @@ class UserBehavior(TaskSet):
             str(r_create.status_code)
 
         # SAVE CREATED USER ID
-        global user_id
-        user_id=str(r_create.json()['id'])
+        global userId
+        userId=str(r_create.json()['id'])
         
         # UPDATE USER
         r_update = self.client.put(
-            "/users/"+user_id, headers=headers, data=user)
+            "/users/"+userId, headers=headers, data=user)
         assert r_update.status_code == HTTPStatus.CREATED, "Unexpected response code: " + \
             str(r_update.status_code)
 
@@ -53,7 +53,7 @@ class UserBehavior(TaskSet):
     def get_user(self):
         headers = {'Authorization': jwt_token}
         r = self.client.get(
-            "/users/"+user_id, headers=headers)
+            "/users/"+userId, headers=headers)
         assert r.status_code == HTTPStatus.OK, "Unexpected response code: " + \
             str(r.status_code)
 

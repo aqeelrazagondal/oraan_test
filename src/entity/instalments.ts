@@ -1,58 +1,69 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, BeforeInsert, BeforeUpdate } from "typeorm";
-import { Length, IsEmail, IsNumber } from "class-validator";
+import {
+    IsInt,
+    IsNumber,
+    IsString,
+    IsDate
+  } from "class-validator";
 import { User } from "./user";
 
 @Entity()
-export class Instalments {
+export class Instalment {
     @PrimaryGeneratedColumn()
     id: number;
 
     @ManyToOne(type => User)
-    @JoinColumn({ name: 'user_id' })
+    @JoinColumn({ name: "userId" })
     @IsNumber()
-    user_id: number;
+    userId: number;
 
     @Column({
-        type: 'datetime'
+        type: "datetime"
     })
-    payment_date: Date;
+    @IsDate()
+    paymentDate: Date;
 
     @Column({
-        type: 'datetime'
+        type: "datetime"
     })
-    instalment_date: Date;
+    @IsDate()
+    instalmentDate: Date;
     
     @Column({
-        type: 'datetime'
+        type: "datetime"
     })
-    instalment_amount: Number;
+    @IsInt()
+    instalmentAmount: number;
     
     @Column({
-        type: 'varchar'
+        type: "varchar"
     })
-    payment_method: string;
+    @IsString()
+    paymentMethod: string;
 
-        // Generic Fields
-        @Column({ nullable: true, type: 'datetime' })
-        created_at: Date;
+    // Generic Fields
+    @Column({ nullable: true, type: "datetime" })
+    createdAt: Date;
         
-        @Column({ nullable: true, type: 'datetime' })
-        updated_at: Date;
+    @Column({ nullable: true, type: "datetime" })
+    updatedAt: Date;
     
-        @BeforeInsert()
-        beforeinsert() {
-            this.created_at = new Date();
-            this.updated_at = new Date();
-        }
+    @BeforeInsert()
+    beforeinsert() {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
     
-        @BeforeUpdate()
-        beforeUpdate() {
-            this.created_at = new Date();
-        }
+    @BeforeUpdate()
+    beforeUpdate() {
+        this.createdAt = new Date();
+    }
 }
 
-export const userSchema = {
-    id: { type: "number", required: true, example: 1 },
-    name: { type: "string", required: true, example: "Javier" },
-    email: { type: "string", required: true, example: "avileslopez.javier@gmail.com" }
+export const installmentSchema = {
+    userId: { type: "string", required: true, example: "Javier" },
+    paymentDate: { type: "date", required: true, example: "12-12-2020" },
+    instalmentDate: { type: "date", required: true, example: "12-12-2020" },
+    instalmentAmount: { type: "Number", required: true, example: "2345" },
+    paymentMethod: { type: "string", required: true, example: "avileslopez.javier@gmail.com" }
 };
