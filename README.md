@@ -4,9 +4,7 @@ The purpose of the back-end is to serve two REST API end-points to any client ap
 
 AVAILABLE ENDPOINTS DEMO [SWAGGER DOCS DEMO](https://localhost:3000/swagger-html)
 
-When running the project locally with `watch-server`, being `.env` file config the very same as `.example.env` file, the swagger docs will be deployed at: `http:localhost:3000/swagger-html`, and the bearer token for authorization should be as follows:
-
-HEADER (LOCALHOST BASED ON DEFAULT SECRET KEY 'your-secret-whatever')
+When running the project locally with `watch-server`, being `.env` file config the very same as `.example.env` file, the swagger docs will be deployed at: `http:localhost:3000/swagger-html`
 
 # Getting Started
 - Clone the repository
